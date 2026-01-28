@@ -1,26 +1,154 @@
 @import "tailwindcss";
-
+/* Base */
+/* ===== Theme Tokens (ScaleOS) ===== */
+/* ===== ScaleOS LIGHT THEME ONLY ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f8fafc; /* off white */
+  --panel: rgba(255, 255, 255, 0.78);
+  --panel-strong: rgba(255, 255, 255, 0.88);
+  --border: rgba(2, 6, 23, 0.1);
+
+  --text: #020617; /* slate-950 */
+  --text-secondary: rgba(2, 6, 23, 0.72);
+  --text-muted: rgba(2, 6, 23, 0.55);
+
+  --brand: #4f46e5;
+  --brand-2: #06b6d4;
+  --success: #10b981;
+
+  --shadow-soft: 0 10px 30px rgba(2, 6, 23, 0.08);
+  --shadow-glow: 0 20px 80px rgba(79, 70, 229, 0.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(2, 6, 23, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(2, 6, 23, 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center;
+  }
+
+  .radial-glow {
+    background: radial-gradient(
+      circle at center,
+      rgba(79, 70, 229, 0.18),
+      transparent 65%
+    );
+  }
+
+  .glass {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+
+  .grad-text {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid rgba(79, 70, 229, 0.35);
+    outline-offset: 3px;
+    border-radius: 14px;
+  }
+  .grad-text-animate {
+    background: linear-gradient(
+      90deg,
+      var(--brand),
+      var(--brand-2),
+      #8b5cf6,
+      var(--brand)
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradShift 6s ease-in-out infinite;
+  }
+
+  @keyframes gradShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Soft floating blobs */
+  .blob {
+    filter: blur(48px);
+    opacity: 0.65;
+    animation: blobFloat 10s ease-in-out infinite;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .blob-2 {
+    animation-duration: 13s;
+    opacity: 0.55;
+  }
+  .blob-3 {
+    animation-duration: 16s;
+    opacity: 0.45;
+  }
+
+  @keyframes blobFloat {
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    50% {
+      transform: translate(12px, -18px) scale(1.06);
+    }
+  }
+
+  /* Subtle shine hover (cards/buttons) */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.45) 50%,
+      transparent 70%
+    );
+    transform: translateX(-60%) rotate(10deg);
+    transition: transform 700ms ease;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .shine:hover::after {
+    transform: translateX(60%) rotate(10deg);
+    opacity: 0.35;
+  }
 }
