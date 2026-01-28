@@ -18,7 +18,6 @@ export default function Differentiation() {
       className="container mx-auto px-5 sm:px-6 lg:px-8 py-16 md:py-24"
       id="differentiation"
     >
-      {/* Header */}
       <div className="max-w-2xl">
         <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
           Old marketing vs{" "}
@@ -30,7 +29,6 @@ export default function Differentiation() {
         </p>
       </div>
 
-      {/* Comparison layout */}
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {/* Typical agencies */}
         <div className="glass rounded-3xl border border-[var(--border)] p-6">
@@ -58,7 +56,6 @@ export default function Differentiation() {
         {/* ScaleOS */}
         <div className="relative rounded-3xl p-[1.5px] bg-gradient-to-br from-[var(--brand)] via-[var(--brand-2)] to-[#8B5CF6]">
           <div className="relative rounded-3xl bg-[var(--bg)] p-6 shadow-glow">
-            {/* Glow background */}
             <div className="pointer-events-none absolute inset-0 radial-glow opacity-40 rounded-3xl" />
 
             <div className="relative mb-5">
@@ -74,8 +71,8 @@ export default function Differentiation() {
               {rows.map((r, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl border border-[color:rgba(79,70,229,0.25)] 
-                  bg-gradient-to-br from-[color:rgba(79,70,229,0.10)] to-[color:rgba(6,182,212,0.10)] 
+                  className="rounded-2xl border border-[color:rgba(79,70,229,0.25)]
+                  bg-gradient-to-br from-[color:rgba(79,70,229,0.10)] to-[color:rgba(6,182,212,0.10)]
                   p-4"
                 >
                   <div className="text-sm font-medium text-[var(--text)]">
@@ -85,10 +82,9 @@ export default function Differentiation() {
               ))}
             </div>
 
-            {/* Footer badge */}
             <div
-              className="relative mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full 
-              border border-[color:rgba(79,70,229,0.35)] 
+              className="relative mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full
+              border border-[color:rgba(79,70,229,0.35)]
               bg-[color:rgba(79,70,229,0.10)] text-xs"
             >
               <span className="h-2 w-2 rounded-full bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)]" />
@@ -98,7 +94,6 @@ export default function Differentiation() {
         </div>
       </div>
 
-      {/* Bottom microcopy */}
       <div className="mt-8 text-center text-xs text-[var(--text-muted)]">
         Campaigns create spikes. Systems create compounding growth.
       </div>

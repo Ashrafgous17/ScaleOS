@@ -49,7 +49,7 @@ const plans: Plan[] = [
 export default function Pricing() {
   return (
     <section
-      className="container mx-auto px-5 sm:px-6 lg:px-8 py-14 md:py-20"
+      className="container mx-auto px-5 sm:px-6 lg:px-8 py-16 md:py-24"
       id="pricing"
     >
       <div className="max-w-2xl">
@@ -65,74 +65,65 @@ export default function Pricing() {
         </p>
       </div>
 
-      <div className="mt-10 grid gap-4 lg:grid-cols-3">
+      <div className="mt-12 grid gap-6 lg:grid-cols-3">
         {plans.map((p) => (
-          <div
-            key={p.name}
-            className={[
-              "rounded-2xl border p-6 shadow-soft",
-              p.highlight
-                ? "border-[color:rgba(79,70,229,0.40)] bg-[color:rgba(79,70,229,0.10)]"
-                : "border-[var(--border)] glass",
-            ].join(" ")}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm font-semibold">{p.name}</div>
-                <div className="mt-1 text-xs text-[var(--text-muted)]">
-                  {p.forWho}
+          <div key={p.name} className={p.highlight ? "" : "h-full"}>
+            {/* Highlighted plan gets gradient border wrapper */}
+            {p.highlight ? (
+              <div className="relative rounded-3xl p-[1.5px] bg-gradient-to-br from-[var(--brand)] via-[var(--brand-2)] to-[#8B5CF6]">
+                <div className="relative rounded-3xl bg-[var(--bg)] p-7 shadow-glow overflow-hidden">
+                  <div className="pointer-events-none absolute inset-0 radial-glow opacity-35" />
+
+                  <PlanHeader p={p} />
+                  <PlanBody p={p} highlight />
+
+                  <div className="relative mt-7 grid gap-3">
+                    <a
+                      href="#install"
+                      className="shine inline-flex justify-center items-center px-6 py-3 rounded-2xl text-sm font-medium text-white
+                      bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] shadow-glow hover:opacity-95 transition focus-ring"
+                    >
+                      Install Growth Plan
+                    </a>
+                    <a
+                      href="#audit"
+                      className="shine inline-flex justify-center items-center px-6 py-3 rounded-2xl text-sm font-medium
+                      border border-[var(--border)] text-[var(--text)] hover:bg-black/5 transition focus-ring"
+                    >
+                      Get a Free Growth Audit
+                    </a>
+                  </div>
                 </div>
               </div>
-              {p.highlight && (
-                <span className="px-2.5 py-1 rounded-full text-xs border border-[color:rgba(79,70,229,0.45)] bg-white/5">
-                  Most popular
-                </span>
-              )}
-            </div>
+            ) : (
+              <div className="glass shine rounded-3xl border border-[var(--border)] p-7 shadow-soft h-full transition hover:-translate-y-0.5">
+                <PlanHeader p={p} />
+                <PlanBody p={p} />
 
-            <div className="mt-5 text-2xl font-semibold">{p.price}</div>
-            <div className="mt-1 text-xs text-[var(--text-muted)]">
-              3-month minimum • then monthly
-            </div>
-
-            <ul className="mt-5 space-y-3">
-              {p.bullets.map((b) => (
-                <li
-                  key={b}
-                  className="flex gap-3 text-sm text-[var(--text-secondary)]"
-                >
-                  <span className="mt-1 h-2 w-2 rounded-full bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] shadow-glow" />
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-6 flex flex-col gap-3">
-              <a
-                href="#install"
-                className={[
-                  "inline-flex justify-center items-center px-5 py-3 rounded-2xl text-sm font-medium transition",
-                  p.highlight
-                    ? "text-white bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] shadow-glow hover:opacity-95"
-                    : "border border-[var(--border)] text-[var(--text)] hover:bg-white/5",
-                ].join(" ")}
-              >
-                {p.highlight ? "Install Growth Plan" : `Choose ${p.name}`}
-              </a>
-
-              <a
-                href="#audit"
-                className="inline-flex justify-center items-center px-5 py-3 rounded-2xl text-sm font-medium border border-[var(--border)] text-[var(--text)] hover:bg-white/5 transition"
-              >
-                Get a Free Growth Audit
-              </a>
-            </div>
+                <div className="mt-7 grid gap-3">
+                  <a
+                    href="#install"
+                    className="shine inline-flex justify-center items-center px-6 py-3 rounded-2xl text-sm font-medium
+                    border border-[var(--border)] text-[var(--text)] hover:bg-black/5 transition focus-ring"
+                  >
+                    Choose {p.name}
+                  </a>
+                  <a
+                    href="#audit"
+                    className="shine inline-flex justify-center items-center px-6 py-3 rounded-2xl text-sm font-medium
+                    border border-[var(--border)] text-[var(--text)] hover:bg-black/5 transition focus-ring"
+                  >
+                    Get a Free Growth Audit
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      <div className="mt-10 glass rounded-2xl border border-[var(--border)] p-6">
-        <div className="text-sm font-medium">What you actually get</div>
+      <div className="mt-10 glass rounded-3xl border border-[var(--border)] p-7">
+        <div className="text-sm font-semibold">What you actually get</div>
         <p className="mt-2 text-sm text-[var(--text-secondary)]">
           A growth roadmap, funnel architecture, automation systems, and
           execution — aligned to revenue metrics like activation rate,
@@ -140,5 +131,66 @@ export default function Pricing() {
         </p>
       </div>
     </section>
+  );
+}
+
+function PlanHeader({ p }: { p: Plan }) {
+  return (
+    <div className="relative">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <div className="text-xs text-[var(--text-muted)]">{p.forWho}</div>
+          <div className="mt-2 text-xl font-semibold">
+            {p.highlight ? (
+              <span className="grad-text-animate">{p.name}</span>
+            ) : (
+              p.name
+            )}
+          </div>
+        </div>
+
+        {p.highlight && (
+          <span
+            className="px-3 py-1 rounded-full text-xs border border-[color:rgba(79,70,229,0.35)]
+            bg-[color:rgba(79,70,229,0.10)]"
+          >
+            Most popular
+          </span>
+        )}
+      </div>
+
+      <div className="mt-5 flex items-end justify-between">
+        <div className="text-3xl font-semibold">{p.price}</div>
+      </div>
+
+      <div className="mt-2 text-xs text-[var(--text-muted)]">
+        3-month minimum • then monthly
+      </div>
+    </div>
+  );
+}
+
+function PlanBody({ p, highlight }: { p: Plan; highlight?: boolean }) {
+  return (
+    <div className="relative mt-6">
+      <ul className="space-y-3">
+        {p.bullets.map((b) => (
+          <li
+            key={b}
+            className="flex gap-3 text-sm text-[var(--text-secondary)]"
+          >
+            <span
+              className={[
+                "mt-1 h-2 w-2 rounded-full",
+                highlight
+                  ? "bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] shadow-glow"
+                  : "bg-[var(--success)]",
+              ].join(" ")}
+            />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
